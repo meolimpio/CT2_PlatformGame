@@ -5,29 +5,50 @@ using UnityEngine;
 public class Movimentacao : MonoBehaviour
 {
     Rigidbody2D rb;
+    Animator animator;
+
     public float speed;
     public float jumpForce = 5f;
+    public bool inFloor;
+    private float direction;
+    public Transform detectGround;
+    public LayerMask isGround;
+
+    private Vector3 facingRight;
+    private Vector3 facingLeft;
+
+
 
     void Start()
     {
+        facingRight = transform.localScale;
+        facingLeft = transform.localScale;
+        facingLeft.x = facingLeft.x * -1;
+
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
+        direction = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(direction * speed, rb.velocity.y);
 
-        rb.velocity = new Vector2(moveHorizontal * speed, rb.velocity.y);
+        inFloor = Physics2D.OverlapCircle(detectGround.position, 0.2f, isGround);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(direction > 0) //olhando para a direita
         {
-            Jump();
+            transform.localScale = facingRight;
         }
-    }
 
-    void Jump()
-    {
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        if(direction < 0) //olhando para a esquerda
+        {
+            transform.localScale = facingLeft;
+        }
+
+        if (Input.GetButtonDown("Jump") && inFloor == true)
+        {
+            rb.velocity = Vector2.up * 5;
+        }
     }
 
 }

@@ -26,11 +26,23 @@ public class Movimentacao : MonoBehaviour
         facingLeft.x = facingLeft.x * -1;
 
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
         direction = Input.GetAxis("Horizontal");
+
+        if(Input.GetAxis("Horizontal") != 0) //correndo
+        {
+            animator.SetBool("isRunning", true);
+        }
+
+        else //parado
+        {
+            animator.SetBool("isRunning", false);
+        }
+
         rb.velocity = new Vector2(direction * speed, rb.velocity.y);
 
         inFloor = Physics2D.OverlapCircle(detectGround.position, 0.2f, isGround);

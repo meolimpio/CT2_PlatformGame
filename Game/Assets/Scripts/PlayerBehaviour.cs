@@ -11,7 +11,6 @@ public class PlayerBehaviour : MonoBehaviour
     private float jumpForce = 5f;
     public bool inFloor;
     private float direction;
-    private int numLives = 3;
     public int jumpExtra = 1;
     
     private GameController gcPlayer;
@@ -84,17 +83,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     }
 
-    //colidir com o inimigo
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            LoseLife();
-        }
-    }
+    
 
     //colisão com as moedas
-    void OnTriggerEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Coin")
         {
@@ -105,21 +97,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     
-    //perda de vida quando colide com o inimigo
-    public void LoseLife()
-    {
-        numLives--;
-
-        if (numLives <= 0)
-        {
-            Debug.Log("Game Over");
-        }
-
-        else
-        {
-            Debug.Log("Continue");
-        }
-    }
+    
 
 }
 

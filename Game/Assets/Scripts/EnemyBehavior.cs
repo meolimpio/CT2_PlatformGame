@@ -29,11 +29,14 @@ public class EnemyBehavior : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
+        if(other.gameObject.tag == "Ground")
+        {
+            transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
+        }
     }
 
     private bool isFacingRight()
     {
-        return transform.localScale.x == 1;
+        return transform.localScale.x > 0.0001f;
     }
 }

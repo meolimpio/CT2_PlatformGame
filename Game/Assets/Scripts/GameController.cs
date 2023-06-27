@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     public Text Score;
     public int coins;
 
+    
     void Awake()
     {
         if(gc == null)

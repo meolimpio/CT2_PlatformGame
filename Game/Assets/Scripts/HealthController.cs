@@ -23,7 +23,7 @@ public class HealthController : MonoBehaviour
         }
     }
 
-//colidir com o inimigo
+    //colidir com o inimigo
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -31,6 +31,7 @@ public class HealthController : MonoBehaviour
             LoseLife();
         }
     }
+
     //perda de vida quando colide com o inimigo
     public void LoseLife()
     {
